@@ -1,0 +1,25 @@
+:root {
+    --main-color: red;
+
+}
+
+/* Header Section */
+.headerBg {
+    background-color: var(--main-color);
+    font-size: xx-large;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 20vh;
+}
+
+.gameTitle {
+    margin: 2rem;
+    color: white;
+}
+
+.pokeball {
+    height: 96px;
+    width: 96px;
+}
