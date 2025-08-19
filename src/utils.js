@@ -1,10 +1,13 @@
 export const shuffleArr = (arr) => {
-    let curIndex = arr.length
+    let newArr = [...arr]
+    let curIndex = newArr.length
 
     while (curIndex !== 0) {
         let randomIndex = Math.floor(Math.random() * curIndex);
         curIndex--;
 
-        [arr[curIndex], arr[randomIndex]] = [arr[randomIndex], arr[curIndex]]
+        [newArr[curIndex], newArr[randomIndex]] = [newArr[randomIndex], newArr[curIndex]]
     }
+
+    return newArr;
 }

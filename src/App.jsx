@@ -5,8 +5,30 @@ import { Header } from './components/header'
 import { CardShuffleContainer } from './components/CardShuffleContainer'
 
 function App() {
-  const [pokeSprites, setPokeSprites] = useState([])
-  
+  const [pokeData, setPokeData] = useState([]);
+  const [chosen, setChosen] = useState([]);
+  const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
+
+  function handleChange(name) {
+    if (chosen.includes(name)) {
+      setHighScore(Math.max(highScore, score))
+      setScore(0)
+      setChosen([])
+
+      setPokeData(prev => shuffleArr(prev))
+    } else {
+      setChosen(prevChosen => [...prevChosen, name]);
+      setScore(prevScore => {
+        const newScore = prevScore + 1
+        setHighScore(prevHighScore => Math.max(prevHighScore, newScore))
+        return newScore
+      })
+      setPokeData(prev => shuffleArr(prev))
+    }
+  }
+
+
   async function fetchPokemon() {
     const pokemons = [6, 25, 150, 133, 376, 258] //pokemon id
     
@@ -20,29 +42,31 @@ function App() {
   const getPokeData = (pokeData) => {
     const spriteArr = []
     let n = 0
+    
     while (pokeData.length > n) {
-      spriteArr.push(pokeData[n].sprites.front_default)
-      n += 1
-      console.log(n)
+      spriteArr.push({sprite: pokeData[n].sprites.front_default, name: pokeData[n].name})
+      n++;
     }
+    console.log("spriteArr:", spriteArr[0].name)
+    console.log("Sprite data", spriteArr[0].sprite)
     return spriteArr
   }
+
   useEffect(() => {
     async function loadPokemon() {
       const pokeData = await fetchPokemon();
-      console.log(pokeData)
-      const spriteArr = getPokeData(pokeData)
-      setPokeSprites(spriteArr)
+    
+      const pokeDataArr = getPokeData(pokeData)
+      console.log(pokeDataArr)
+      setPokeData(pokeDataArr)
     }
-    fetchPokemon();
     loadPokemon();
   }, [])
-  console.log(pokeSprites)
 
   return (
     <>
       <Header/>
-      <CardShuffleContainer sprites={pokeSprites}/>   
+      <CardShuffleContainer pokeData={pokeData} onChange={handleChange}/>   
     </>
   )
 }
