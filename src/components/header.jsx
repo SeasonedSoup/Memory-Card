@@ -1,7 +1,7 @@
 import pokeballImg from '../assets/pokeball.png';
 
 import '../styles/styles.css'
-function Header() {
+function Header({score, highScore}) {
     return (
         <div className="headerBg">
             <div className="textWrapper">
@@ -9,8 +9,8 @@ function Header() {
                 <p className='gameTip'>Memory Game! Get a point for every single unique pokemon card you have picked. Resets when choosing the same pokemon that has already been chosen.</p>
             </div>
             <div className="scoreSection">
-            <p className="score">Score: </p>
-            <p className="highScore">Highscore:</p>
+            <p className="score">Score: {score}</p>
+            <p className="highScore">Highscore: {highScore}</p>
             </div>
             <img className='pokeball' src={pokeballImg} alt="Poke-Ball Logo" />
         </div>

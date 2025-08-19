@@ -10,15 +10,24 @@ function App() {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
 
+
   function handleChange(name) {
     if (chosen.includes(name)) {
+      alert('Repeated Pokemon D: Restarting Score!')
       setHighScore(Math.max(highScore, score))
       setScore(0)
       setChosen([])
 
       setPokeData(prev => shuffleArr(prev))
     } else {
-      setChosen(prevChosen => [...prevChosen, name]);
+      setChosen(prevChosen => {
+        const newChosen = [...prevChosen, name]
+        if(newChosen.length === pokeData.length) {
+          alert("Congrats! You have remembered all the pokemon.")
+        } 
+        
+        return newChosen
+      });
       setScore(prevScore => {
         const newScore = prevScore + 1
         setHighScore(prevHighScore => Math.max(prevHighScore, newScore))
@@ -53,6 +62,7 @@ function App() {
   }
 
   useEffect(() => {
+    
     async function loadPokemon() {
       const pokeData = await fetchPokemon();
     
@@ -65,8 +75,8 @@ function App() {
 
   return (
     <>
-      <Header/>
-      <CardShuffleContainer pokeData={pokeData} onChange={handleChange}/>   
+      <Header score={score} highScore={highScore}/>
+      <CardShuffleContainer pokeData={pokeData} handleChange={handleChange}/>   
     </>
   )
 }
