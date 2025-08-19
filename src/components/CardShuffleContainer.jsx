@@ -3,12 +3,12 @@ function CardShuffleContainer({sprites}) {
     return (
         <div className="mainBody">
             <div className="cardContainer">
-                <div className="card">1 <img src={sprites} alt="ditto" /></div>
-                <div className="card">2</div>
-                <div className="card">3</div>
-                <div className="card">4</div>
-                <div className="card">5</div>
-                <div className="card">6</div>
+                <div className="card"><img src={sprites[0]} alt="pokemon" /></div>
+                <div className="card"><img src={sprites[1]} alt="pokemon"/></div>
+                <div className="card"><img src={sprites[2]} alt="pokemon"/></div>
+                <div className="card"><img src={sprites[3]} alt="pokemon"/></div>
+                <div className="card"><img src={sprites[4]} alt="pokemon"/></div>
+                <div className="card"><img src={sprites[5]} alt="pokemon"/></div>
             </div>
         </div>
     )
